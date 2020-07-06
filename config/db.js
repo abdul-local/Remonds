@@ -1,6 +1,9 @@
+// memanggil package mongoose
 const mongoose = require('mongoose');
+//memanggil package config
 const config= require('config');
-const db =config.get('mongoURI');
+//memanggil koneksi ke database
+const db = config.get('mongoURI');
 
 // Koneksi ke db
 const connectDB = async() => {
@@ -14,5 +17,5 @@ const connectDB = async() => {
     process.exit(1);
 
 }
-// export module
+// exports module
 module.exports=connectDB;
