@@ -1,3 +1,4 @@
 {
-  "mongoURI" :"mongodb+srv://abdul:abdul123@project-ku.lsfns.mongodb.net/<dbname>?retryWrites=true&w=majority"
+  "mongoURI" :"mongodb+srv://abdul:abdul123@project-ku.lsfns.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret":"mysecrettoken"
 }

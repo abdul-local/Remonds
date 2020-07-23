@@ -5,6 +5,8 @@ const bcrypt=require('bcryptjs');
 //(1) require user models
 const User= require('../../models/User');
 const gravatar= require('gravatar');
+const jwt = require('jsonwebtoken');
+const  config =require('config');
 
 // @route-->Post api users
 //@desc-->Test Route
@@ -57,9 +59,20 @@ async(req,res)=>{
         
 
         //return json web token
+        const payload={
+            user:{
+                id: user.id,
+            }
+        };
+        jwt.sign(payload,config.get('jwtSecret'),{expiresIn:360000},
+        (err,token)=>{
+            if(err) throw err;
+            res.json({token});
+        }
+        )
 
 
-        res.send('users route')
+       // res.send('users route')
     }catch(err){
         console.error(err.message);
         res.status(500).send("server error")
