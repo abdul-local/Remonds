@@ -113,7 +113,45 @@ async(req,res)=>{
 
 
 });
+// @route-->GET api/profile/
+//@desc-->Get all profile
+//@access->Privat
+router.get('/',async(req,res)=> {
 
+    try{
+        const profiles=await Profile.find().populate('user',['name',
+    'avatar']);
+    res.json(profiles);
+
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('Server Error');
+
+    }
+});
+// @route-->GET api/profile/user/:user_id
+//@desc-->Get profile by user_id
+//@access->Publick
+router.get('/user/:user_id',async (req,res)=>{
+
+    try{
+        const profile= await Profile.find({user: req.params.user_id})
+        .populate('user',['name','avatar']);
+        if(!profile){
+            res.status(400).json({msg:'Profile tidak di temukan'});
+            res.json(profile);
+        }
+
+    }catch(err){
+        console.err(err.message);
+        res.status(500).send('server error');
+        if(err.kind =='ObjectId'){
+            return res.status(400).json({msg:'profile tidak di temukan'});
+
+        }
+
+    }
+});
 
 //exports route
 module.exports = router;
