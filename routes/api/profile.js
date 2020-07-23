@@ -74,8 +74,42 @@ async(req,res)=>{
     if(skills){
         profileFileds.skills=skills.split(',').map(skill=> skill.trim());
     }
-    console.log(profileFileds.skills);
-    res.send(profileFileds.skills);
+    //console.log(profileFileds.skills);
+    //res.send(profileFileds.skills);
+    // build social objcet
+    profileFileds.social={}
+    if(youtube) profileFileds.social.youtube = youtube;
+    if(facebook) profileFileds.social.facebook = facebook;
+    if(twitter) profileFileds.social.twitter = twitter;
+    if(instagram) profileFileds.social.instagram = instagram;
+    if(linkedin) profileFileds.social.linkedin = linkedin;
+
+    try{
+
+        let profile=await Profile.findOne({user:req.user.id});
+        if(profile){
+            //update profile
+            profile=await Profile.findOneAndUpdate(
+                {user:req.user.id },
+                {$set:profileFileds},
+                {new:true}
+                );
+                return res.json(profile);
+            }
+
+            // Create Profile
+            profile=new Profile(profileFileds);
+            await profile.save();
+            res.json(profile);
+    }catch(err){
+        console.error(err.message);
+        res.status(500).send('server Eror');
+
+
+    }
+
+
+
 
 
 });
