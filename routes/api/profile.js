@@ -4,6 +4,9 @@ const auth=require('../../middleware/auth');
 const Profile=require('../../models/Profile');
 const User=require('../../models/User');
 const { body, validationResult ,check} = require('express-validator');
+const request=require('request');
+const config=require('config');
+
 
 
 // @route-->Get api/profile/me
@@ -68,21 +71,20 @@ async(req,res)=>{
     profileFileds.user=req.user.id;
     if(company) profileFileds.company=company;
     if(website) profileFileds.website=website;
+    if(location)profileFileds.location=location;
     if(bio) profileFileds.bio=bio;
     if(status) profileFileds.status=status;
     if(githubusername) profileFileds.githubusername=githubusername;
     if(skills){
         profileFileds.skills=skills.split(',').map(skill=> skill.trim());
     }
-    //console.log(profileFileds.skills);
-    //res.send(profileFileds.skills);
     // build social objcet
     profileFileds.social={}
     if(youtube) profileFileds.social.youtube = youtube;
-    if(facebook) profileFileds.social.facebook = facebook;
-    if(twitter) profileFileds.social.twitter = twitter;
-    if(instagram) profileFileds.social.instagram = instagram;
-    if(linkedin) profileFileds.social.linkedin = linkedin;
+    if(twitter) profileFileds.social.facebook = twitter;
+    if(facebook) profileFileds.social.twitter = facebook;
+    if(linkedin) profileFileds.social.instagram = linkedin;
+    if(instagram) profileFileds.social.linkedin = instagram;
 
     try{
 
@@ -137,19 +139,19 @@ router.get('/user/:user_id',async (req,res)=>{
     try{
         const profile= await Profile.find({user: req.params.user_id})
         .populate('user',['name','avatar']);
-        if(!profile){
-            res.status(400).json({msg:'Profile tidak di temukan'});
+        if(!profile)
+            return res.status(400).json({msg:'Profile tidak di temukan'});
             res.json(profile);
-        }
+    
 
     }catch(err){
-        console.err(err.message);
-        res.status(500).send('server error');
+        //console.err(err.message);
         if(err.kind =='ObjectId'){
             return res.status(400).json({msg:'profile tidak di temukan'});
 
         }
 
+        res.status(500).send('Server Error');
     }
 });
 
@@ -320,6 +322,39 @@ res.json(profile);
     res.status(400).send('server Error');
 }
 });
+// @route-->Get api/profile/github/:username
+//@desc--> Get repo from github.com
+//@access->Privat
+// @route-->Get api/profile/github/:username
+//@desc--> Get repo from github.com
+//@access->Privat
+router.get('/github/:usernanme',(req,res)=>{
+    try{
+        const options ={
+           
+      uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${config.get('githubClientId')}client_secret=${config.get('githubSecret')}`,
+      method: 'GET',
+     headers: { 'user-agent': 'node.js' }
+        };
+        request(options,(error,response,body)=>{
+
+            if(error) console.error(error);
+
+            if(response.statusCode !==200){
+                return res.status(404).json({msg:'No github profile found'});
+                //res.json(JSON.parse(body));
+            }
+            res.json(JSON.parse(body));
+        });
+
+    }catch(err){
+
+        console.error(err.message);
+        res.status(5000).send('Server Error');
+    }
+
+});
+
 
 
 //exports route
