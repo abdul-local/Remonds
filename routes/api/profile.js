@@ -153,5 +153,25 @@ router.get('/user/:user_id',async (req,res)=>{
     }
 });
 
+// @route-->DELET api/profile/me
+//@desc--> Delet, users, profile
+//@access->Privat
+
+router.delete('/',auth,async(req,res)=>{
+    try{
+        //remove Profile
+       await Profile.findOneAndRemove({user: req.user.id});
+       // remove user
+       await Profile.findOneAndRemove({_id:req.user.id});
+       res.json('User berhasil di hapus');
+      
+    }catch(err){
+
+        console.error(err.message);
+        res.status(500).send('server error');
+    }
+});
+
+
 //exports route
 module.exports = router;
