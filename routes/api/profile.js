@@ -135,20 +135,17 @@ router.get('/',async(req,res)=> {
 router.get('/user/:user_id',async (req,res)=>{
 
     try{
-        const profile= await Profile.find({user: req.params.user_id})
-        .populate('user',['name','avatar']);
-        if(!profile){
-            res.status(400).json({msg:'Profile tidak di temukan'});
-            res.json(profile);
-        }
-
+        const profile= await Profile.find({user: req.params.user_id}).populate('user',['name','avatar']);
+        if(!profile)res.status(400).json({msg:'Profile tidak di temukan'});
+            
+         res.json(profile);
+        
     }catch(err){
-        console.err(err.message);
-        res.status(500).send('server error');
         if(err.kind =='ObjectId'){
             return res.status(400).json({msg:'profile tidak di temukan'});
 
         }
+        res.status(500).send('server error');
 
     }
 });
