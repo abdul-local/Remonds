@@ -93,9 +93,6 @@ const ProfileSchema= new mongoose.Schema({
         youtube:{
             type:String
         },
-        instagram:{
-            type:String
-        },
         twitter:{
             type:String
         },
@@ -103,6 +100,9 @@ const ProfileSchema= new mongoose.Schema({
             type:String
         },
         linkedin:{
+            type:String
+        },
+        instagram:{
             type:String
         }
     },
