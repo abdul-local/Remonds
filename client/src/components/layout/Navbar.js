@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 const Navbar = () => {
  return (
  // copy dan paste navbar dari remonds-theme disini, dan rubah class menjadi className
@@ -8,8 +9,8 @@ const Navbar = () => {
  </h1>
  <ul>
  <li><a href="profiles.html">Members</a></li>
- <li><a href="register.html">Register</a></li>
- <li><a href="login.html">Login</a></li>
+ <li><Link to="/register.html">Register</Link></li>
+ <li><Link to="/login.html">Login</Link></li>
  </ul>
  </nav>
  )
