@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
-import { disconnect } from 'mongoose';
+//import { disconnect } from 'mongoose';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -66,7 +66,7 @@ export const register =({ name, email, password }) => async dispatch =>{
         });
 
     }
-}
+};
 
 // Login User
 export const login =(email, password ) => async dispatch =>{
