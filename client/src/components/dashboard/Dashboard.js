@@ -5,6 +5,9 @@ import {getCurrentProfile} from'../../actions/profile';
 import Spinner from'../layout/Spinner';
 import {Link} from 'react-router-dom';
 import DashboardAction from './DashboarAction';
+import Experience from './Experience';
+import Education from './Education';
+
 
 
 
@@ -24,8 +27,12 @@ const Dashboard= ({getCurrentProfile,
         </p>
         { profile !== null ?(
             <Fragment>
-                <DashboardAction></DashboardAction>
-             </Fragment>
+                    <DashboardAction />
+                    <Experience experience={profile.experience} />
+                    <Education education={profile.education} />
+                    
+            </Fragment>
+            
         ) : (
             <Fragment>
                 <p> Anda belum memiliki Profile, isi Profile Anda disini</p>
