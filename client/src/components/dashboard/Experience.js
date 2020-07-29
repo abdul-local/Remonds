@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 import PropTyps from 'prop-types';
 import Moment from 'react-moment';
 import {connect} from 'react-redux';
+import { deleteExperience } from '../../actions/profile';
 
-const Experience = ({experience}) =>{
+const Experience = ({experience, deleteExperience}) =>{
     const experiences =experience.map(exp=>(
         <tr>
             <td className='hide-sm'>{exp.company}</td>
@@ -16,7 +17,10 @@ const Experience = ({experience}) =>{
                 )}
             </td>
             <td>
-                <button className='btn btn-danger'>Delet</button>
+                <button className='btn btn-danger'
+                onClick={()=> deleteExperience(exp._id)}>
+                    Delet
+                </button>
             </td>
         </tr>
     ));
@@ -44,7 +48,8 @@ const Experience = ({experience}) =>{
     );
 };
 Experience.prototype={
-    experience: PropTyps.array.isRequired
+    experience: PropTyps.array.isRequired,
+    deleteExperience: PropTyps.func.isRequired
 
-}
-export default Experience;
+};
+export default connect(null, {deleteExperience})(Experience);
