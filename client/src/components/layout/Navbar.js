@@ -7,8 +7,10 @@ const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
     // membuat link auth dan guest non auth
     const authLink=(
         <ul>
-        <li><a href="#!">Members</a></li>
-        <li>
+            <li>
+        <Link to="/profiles">Members </Link>
+           </li>
+           <li>
            <Link to="/dashboard" >
              <i className='fas fa-user' />{' '}
               <span className='hide-sm'>Dashboard</span>
@@ -26,6 +28,9 @@ const Navbar = ({auth: {isAuthenticated, loading}, logout}) => {
         <ul>
         <li><Link to="/register">Register</Link></li>
         <li><Link to="/login">Login</Link></li>
+        <li>
+        <Link to="/profiles">Members </Link>
+           </li>
         </ul>
 
     )
