@@ -13,6 +13,9 @@ const Postschema = new schema({
     name:{
         type:String
     },
+    avatar:{
+        type:String
+    },
     likes:[
         {
             //relation/reference
@@ -22,9 +25,6 @@ const Postschema = new schema({
             }
         }
     ],
-    avatar:{
-        type:String
-    },
     comments:[
         {
             user:{
