@@ -68,13 +68,16 @@ export default function (state = initialState, action) {
                 loading: false
             };
         case REMOVE_COMMENT:
-            return{
-                ...state,
-                post:{
-                comments: state.post.comments.filter(comment => comment.id !== payload),
-                },
-                loading: false
-            }
+                return {
+                  ...state,
+                  post: {
+                    ...state.post,
+                    comments: state.post.comments.filter(
+                      comment => comment._id !== payload
+                    )
+                  },
+                  loading: false
+                };
         default:
             return state;
     }
