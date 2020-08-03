@@ -48,7 +48,7 @@ async(req,res)=>{
             email,
             avatar,
             password
-        })
+        });
 
         //encrypt password dengan bcrypt
         //membuat format hash dengan bantuan "salt"
