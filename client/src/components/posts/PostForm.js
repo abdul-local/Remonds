@@ -7,7 +7,7 @@ const PostForm = ({ addPost }) => {
     const [text, setText] = useState('');
 
     return (
-        // copy dari theme
+    
         <div class="post-form">
             <div class="bg-primary p">
                 <h3>Say Something...</h3>
