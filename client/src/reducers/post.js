@@ -2,29 +2,31 @@ import {
     GET_POSTS,
     POST_ERROR
 } from '../actions/types';
-const initialState ={
+
+const initialState = {
     posts: [],
-    post:null,
-    loading:true,
-    error:{}
+    post: null,
+    loading: true,
+    error: {}
 }
-export default function ( state = initialState, actions){
-    const { type,payload } = actions;
-    switch (type){
+
+export default function (state = initialState, action) {
+    const { type, payload } = action;
+
+    switch (type) {
         case GET_POSTS:
-            return{
+            return {
                 ...state,
-                posts:payload,
+                posts: payload,
                 loading: false
-            }
+            };
         case POST_ERROR:
-            return{
-            ...state,
-            posts:payload,
-            loading: false
+            return {
+                ...state,
+                error: payload,
+                loading: false
             };
         default:
             return state;
-
     }
-}
+} 
