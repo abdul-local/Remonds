@@ -22,6 +22,9 @@ const Postschema = new schema({
             }
         }
     ],
+    avatar:{
+        type:String
+    },
     comments:[
         {
             user:{
