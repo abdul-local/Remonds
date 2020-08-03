@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
-import { connect, shallowEqual } from 'react-redux'
+import { connect } from 'react-redux'
 import { addLike, removeLike, deletePost } from '../../actions/post'
 
 
@@ -11,14 +11,13 @@ const PostItem = ({
     removeLike, 
     auth,
     deletePost,
-    post: { _id, text, name, avatar, user, likes, comments, date },
+    post: { _id,text,name,avatar,user,likes,comments,date },
     showActions
 }) =>
     <div className="post bg-white p-1 my-1">
         <div>
             <Link to={`/profile/${user}`}>
-                <img className="round-img" src={avatar}
-                alt="" />
+                <img className="round-img" src={avatar} alt="" />
                 <h4>{name}</h4>
             </Link>
         </div>
